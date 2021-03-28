@@ -27,7 +27,7 @@ code {
 .container::after {
     content: "";
     opacity: 0.8;
-    background:  url("http://localhost:3000/bg.jpg");
+    background:  url("/bg.jpg");
     background-blend-mode: luminosity;
     /* also change the blend mode to what suits you, from darken, to other 
     many options as you deem fit*/
