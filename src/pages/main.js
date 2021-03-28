@@ -74,7 +74,7 @@ const Main = (props) => {
                     </div>
                 </div>
                 
-            : data ?
+            : data && !isSearching ?
                 <>
                     <div class="text-center text-3xl font-semibold mt-5 px-6">Ostatnie aktualizacje</div>
                     <div class="flex flex-col w-4/5 ">
