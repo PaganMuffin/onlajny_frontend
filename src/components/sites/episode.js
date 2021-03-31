@@ -95,6 +95,7 @@ const Ep = (props) => {
                             <iframe 
                                 src={link} 
                                 allowfullscreen="true"
+                                id="iframe_player"
                                 style={{
                                     width:'100%',
                                     height:'100%',

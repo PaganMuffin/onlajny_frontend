@@ -16,26 +16,32 @@ const update = (props) => {
                     display:'grid',
                     gridTemplateColumns:'repeat(auto-fit, minmax(110px, 1fr))',
                     gridGap:'1rem 1rem',
-                    'box-shadow':' 10px 10px 20px 0px rgba(0,0,0,0.50)'
                 }}
-                class="bg-white bg-opacity-5 rounded-lg p-5 "
             >
-                {props.data.items.map(x => {
+                {props.data.items.map((x, i) => {
+                    
                     return(
-                        <Link to={x.type === 'series' ? `/series?provider=${x.provider}&id=${x.id}-${x.ep}` : `/episode?provider=${x.provider}&id=${x.id}&episode=${x.ep}`}>
-                            <div 
-                                class="bg-cover bg-no-repeat"
-                                style={{
-                                    backgroundImage:`url("https://bundle.animegetter.workers.dev/proxy?p=${x.cover}")`,
-                                    minHeight:'140px',
-                                    minWidth:'110px',
-                                    borderRadius:'5px'
-                                
-                                }}
-                            >
-                            </div>
+                        <Link 
+                            to={x.type === 'series' ? `/series?provider=${x.provider}&id=${x.id}-${x.ep}` : `/episode?provider=${x.provider}&id=${x.id}&episode=${x.ep}`}
+                            title={x.title}
+                            class="hover-trigger"
+                        >
                             <div>
-                                {x.title}
+                                <div id="cover" class="overflow-hidden rounded-md">
+                                    <div
+                                        style={{
+                                            backgroundImage:`url("https://bundle.animegetter.workers.dev/proxy?p=${x.cover}")`,
+                                            width:'110px',
+                                            height:'170px',
+                                            
+                                        }}
+                                        class="bg-cover bg-no-repeat transition duration-250 ease-in hover-target transform"
+                                    >
+                                    </div>
+                                </div>
+                                <div id="title">
+                                    {x.title}
+                                </div>
                             </div>
                         </Link>
                     )

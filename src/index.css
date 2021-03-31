@@ -41,3 +41,10 @@ code {
     background-position: center;
     filter: blur(4px);
 }
+.hover-trigger .hover-target {
+    transform: scale(1.0);
+}
+
+.hover-trigger:hover .hover-target {
+    transform: scale(1.1);
+}
