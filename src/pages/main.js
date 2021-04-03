@@ -3,6 +3,10 @@ import Update from '../components/update'
 import useDebounce from '../components/useDebounce'
 import SearchView from '../components/search'
 import Loading from '../components/loading'
+const API = {
+    adres: "https://api.animegetter.workers.dev",
+    version: "v1"
+}
 
 const Main = (props) => {
     const [data, setData] = useState(null)
@@ -13,26 +17,34 @@ const Main = (props) => {
     const [isSearching, setIsSearching] = useState(false)
 
     const fetchUpdate = async () => {
-        const res = await fetch('https://bundle.animegetter.workers.dev/update')
+        const res = await fetch(`${API.adres}/${API.version}/update`)
         const res_json = await res.json()
         setData(res_json.reverse())
         setSearchData(null)
     }
 
+   // useEffect(() => {
+   //     const params = new URLSearchParams(props.location.search)
+   //     if(params.has('search') && params.get('s')){
+   //         setSearch(params.get('search'))
+   //     } else {
+   //         fetchUpdate()
+   //     }
+   // }, [])
+
     useEffect(() => {
-        const params = new URLSearchParams(props.location.search)
-        if(params.has('search')){
-            setSearch(params.get('search'))
+        const p = new URLSearchParams( props.location.search)
+        if(p.has('search') && p.get('search')){
+            setSearch(p.get('search'))
         } else {
-            fetchUpdate()
+            setSearch('')
         }
-    }, [])
+    }, [props.location])
 
     useEffect(() => {
         if(search){
             apiCall(debounceSearchTerm)
         } else if(search == '') {
-            console.log(setData)
             if(!data){
                 fetchUpdate()
             }
@@ -44,7 +56,7 @@ const Main = (props) => {
     const apiCall = async (e) => {
         setIsSearching(true)
         props.history.push(`?search=${e}`)
-        const res_q = await fetch('https://bundle.animegetter.workers.dev/search?s='+e)
+        const res_q = await fetch(`${API.adres}/${API.version}/search?s=${e}`)
         const req_q_json = await res_q.json()
         setSearchData(req_q_json)
         //setData(null)

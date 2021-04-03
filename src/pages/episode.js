@@ -1,10 +1,13 @@
 import {useState, useEffect, useRef} from 'react'
 import { Link } from 'react-router-dom'
-import LoadingSpin from '../loading'
+import LoadingSpin from '../components/loading'
+const API = {
+    adres: "https://api.animegetter.workers.dev",
+    version: "v1"
+}
+
 const Ep = (props) => {
     const [provider, setProvider] = useState(null) 
-    const [seriesId, setSeriesId] = useState(null) 
-    const [episodeId, serEpisodeId] = useState(null)
     const [data, setData] = useState(null)
     const [link, setLink] = useState(null)
     const [loading, isLoading] = useState(false)
@@ -13,31 +16,21 @@ const Ep = (props) => {
     const playerRef = useRef(null)
 
     const fetchUpdate = async (params) => {
-        const ur = new URLSearchParams
-        ur.set('id', params.get('id'))
-        ur.set('ep', params.get('episode'))
-        if(params.get('provider') === 'shinden'){
-            ur.set('endpoint', params.get('endpoint'))
-        }
-        const base = `https://${params.get('provider')}.animegetter.workers.dev/`
-        const req = await fetch(`${base}episode?${ur.toString()}`)
+        const req = await fetch(`${API.adres}/${API.version}${params}`)
         const j = await req.json()
         setData(j)
         setLink(j.items[0].url)
     }
 
     useEffect(() => {
-        const params = new URLSearchParams(props.location.search)
-        setProvider(params.get('provider'))
-        setSeriesId(params.get('id'))
-        serEpisodeId(params.get('episode'))
-        fetchUpdate(params)
+        setProvider(props.location.pathname.split('/')[2])
+        fetchUpdate(props.location.pathname)
     }, [])
 
     const showPlayer = async (online_id) => {
         setLink(null)
         isLoading(true)
-        const res = await fetch(`https://shinden.animegetter.workers.dev/player?id=${online_id}`)
+        const res = await fetch(`${API.adres}/${API.version}player/shinden/${online_id}`)
         const res_text = await res.text()
         setLink(res_text)
         isLoading(false)
@@ -47,8 +40,8 @@ const Ep = (props) => {
         <div class="w-full flex justify-center p-2">
             {data === null ? <div class="mt-72"><LoadingSpin/></div>  : 
                 <div class="lg:w-2/4 sm:w-11/12 w-full mt-5">
-                    {provider === 'shinden' ? <p class="font-semibold text-lg">{data.seriesTitle}</p> : null }
-                    <p class="font-semibold text-lg">{data.episodeTitle}</p>
+                    {provider === 'shinden' ? <p class="font-semibold text-lg">{data.series_title}</p> : null }
+                    <p class="font-semibold text-lg">{data.episode_title}</p>
                     <div
                         id="player"
                         ref={playerRef}
@@ -166,18 +159,17 @@ const Ep = (props) => {
 
                         <div
                             style={{
-                                padding:10,
                                 display:'grid',
-                                gridTemplateColumns:'repeat(auto-fit, minmax(120px, 1fr))',
+                                gridTemplateColumns:'repeat(auto-fill, minmax(120px, 1fr))',
                                 gridGap:'1rem 1rem',
-                                'box-shadow':' 10px 10px 20px 0px rgba(0,0,0,0.50)'
                                 
                             }}
+                            class="bg-white bg-opacity-5 rounded-b-lg overflow-hidden"
                         >
-                            {data.items.map((x) => {
+                            {data.items.map((x, idx) => {
                                 return (
                                     <button 
-                                    class="mr-2 hover:bg-red-600 transition duration-300 ease-in-out rounded-md focus:outline-none outline-none text-center font-semibold text-lg px-4" 
+                                    class={`w-full py-1 hover:bg-red-600 transition duration-300 ease-in-out focus:outline-none outline-none text-center font-semibold text-lg`} 
                                     style={{
                                         backgroundColor: x.url === link ? '#B91C1C': null
                                     }}
@@ -187,11 +179,24 @@ const Ep = (props) => {
                         </div>
                         }
                     {provider !== 'shinden' ? 
-                    <div>
-                        INFORMACJE:
-                        <p>{data.episodeTitle}</p>
-                        <p>{data.seriesTitle}</p>
-                        <p>tłumacz...</p>
+                    <div class="mt-6">
+                         <table
+                            class="table-auto w-full"
+                        >
+                            <tr>
+                                <td>Tytul odcinka</td>
+                                <td>{data.episode_title}</td>
+                            </tr>
+                            <tr>
+                                <td>Tytul serii</td>
+                                <td>{data.series_title}</td>
+                            </tr>
+                            <tr>
+                                <td>Tłumacz</td>
+                                <td>{data.translator}</td>
+                            </tr>
+
+                        </table>
                     </div>
                     : null}
                 </div>

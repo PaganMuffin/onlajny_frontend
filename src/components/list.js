@@ -4,27 +4,31 @@ import {Link} from 'react-router-dom'
 
 const ListEpisode = (props) => {
     const provider = props.provider
-    const seriesId = props.seriesId
-    useEffect(() => {
-        console.log(props)
-    }, [props.data])
     return (
         <div>
             { !props.data ? null : 
                 props.data.map((x, idx) => {
-                    console.log(x)
-                    const params = new URLSearchParams
-                    params.append('provider', provider)
-                    params.append('id', provider !== 'desu' ? seriesId : x.id)
-                    params.append('episode', provider !== 'desu' ? x.id : x.ep)
-
+                    //  /episode/shinden/:endpoint/:series_id/:episode_id
+                    //  /episode/ao/:series_id/:episode_id
+                    //  /episode/desu/:id
+                    let url = ''
+                    url += '/episode'
+                    url += `/${provider}`
+                    
+                    if(provider === 'shinden'){
+                        url += `/${x.endpoint}/${props.series_id}/${x.episode_id}`
+                    } else if (provider === 'ao'){
+                        url += `/${x.series_id}/${x.episode_id}`
+                    } else {
+                        url += `/${x.episode_id}`
+                    }
                     return (
                         <div class="p-3"
                             style={{
                                 backgroundColor: idx % 2 ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.1)'
                             }}
                         >
-                            <Link  to={`/episode?${params.toString()}${provider === 'shinden' ? `&endpoint=${x.endpoint}` :  ""}`}>
+                            <Link  to={url}>
                                 <div class="text-lg">
                                 {x.title ?
                                 <p>

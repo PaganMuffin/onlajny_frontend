@@ -1,26 +1,27 @@
 import { useEffect, useState } from "react"
-import ListEpisode from '../list'
-import Loading from '../loading'
+import ListEpisode from '../components/list'
+import Loading from '../components/loading'
+const API = {
+    adres: "https://api.animegetter.workers.dev",
+    version: "v1"
+}
 
 const Series = (props) => {
     const [provider, setProvider] = useState(null) 
     const [seriesId, setSeriesId] = useState(null) 
     const [data, setData] = useState(null)
     const [episodes, setEpisodes] = useState(null)
-    const fetchUpdate = async (params) => {
-        const res = 
-        await 
-        fetch(`https://${params.get('provider')}.animegetter.workers.dev/series?id=${params.get('id')}${params.get('provider') === 'shinden' ? `&endpoint=${params.get('endpoint')}` :  ""}`)
+    const fetchUpdate = async (props) => {
+        const res = await fetch(`${API.adres}/${API.version}${props.pathname}`)
         const res_json = await res.json()
         setData(res_json)
         setEpisodes(res_json.items)
     }
 
     useEffect(() => {
-        const params = new URLSearchParams(props.location.search)
-        setProvider(params.get('provider'))
-        setSeriesId(params.get('id'))
-        fetchUpdate(params)
+        let p = props.location.pathname.split('/')
+        setProvider(p[2])
+        fetchUpdate(props.location)
     }, [])
 
     const sortReverse = () => {
@@ -36,7 +37,7 @@ const Series = (props) => {
                 
                 <div class="md:w-3/4 flex md:flex-row md:items-start flex-col items-center">
                     <div class="md:w-1/4 w-2/4 mt-2">
-                        <img class="rounded-lg mx-auto w-72 mt-5" src={`https://bundle.animegetter.workers.dev/proxy?p=${data.cover}`}></img>
+                        <img class="rounded-lg mx-auto w-72 mt-5" src={`${API.adres}/${API.version}/proxy/${data.cover}`}></img>
                         {/* 
                             AO Tagi, rok wydania
                             Shinden Tagi, 
@@ -54,7 +55,7 @@ const Series = (props) => {
                         </div>
                         <div class="mt-5 rounded-lg">
                             <button onClick={sortReverse}>DASDA</button>
-                            <ListEpisode data={episodes} seriesId={seriesId} provider={provider} />
+                            <ListEpisode data={episodes} series_id={data.series_id} provider={provider} />
                         </div>
 
                     </div>
