@@ -75,7 +75,7 @@ const App = (props) => {
                 </Switch>
             </div>
             <footer class="mt-10 h-10 text-center w-full">
-                DASDASD
+                Onlajny.pl 2021
             </footer>
         </div>
     );

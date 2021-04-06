@@ -1,4 +1,4 @@
-const { green } = require('tailwindcss/colors')
+const { green, purple } = require('tailwindcss/colors')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
@@ -12,6 +12,8 @@ module.exports = {
             white: colors.white,
             gray: colors.trueGray,
             red: colors.rose,
+            indigo: colors.indigo,
+            purple: colors.purple
         },
         screens: {
             'sm': '640px',
@@ -33,6 +35,9 @@ module.exports = {
             colors: {
                 bg_dark:'#121212'
             },
+            backgroundOpacity: {
+                '8':'0.08'
+            }
         },
     },
     variants: {

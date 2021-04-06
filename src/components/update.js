@@ -33,7 +33,7 @@ const update = (props) => {
                         <Link 
                             to={url}
                             title={x.title}
-                            class="hover-trigger w-full"
+                            class="hover-trigger"
                             style={{
                                 width:'125px'
                             }}
@@ -44,9 +44,13 @@ const update = (props) => {
                                 width:'125px'
                             }}>
                                 <div id="cover" class="overflow-hidden rounded-md">
-                                    <img
-                                        src={`https://api.animegetter.workers.dev/v1/proxy/${x.cover}`}
-                                        class="transition duration-250 ease-in hover-target transform"
+                                    <div
+                                        style={{
+                                            backgroundImage:`url("https://api.animegetter.workers.dev/v1/proxy/${x.cover}")`,
+                                            width:'125px',
+                                            height:'180px'
+                                        }}
+                                        class="bg-cover bg-no-repeat transition duration-250 ease-in hover-target transform"
                                     />
                                 </div>
                                 <div id="title" class="truncate">

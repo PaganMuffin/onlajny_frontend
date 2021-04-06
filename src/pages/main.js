@@ -69,7 +69,7 @@ const Main = (props) => {
             <input
                 value={search}
                 placeholder="Tytuł anime..."
-                class="dark:bg-white dark:bg-opacity-0 h-12 border-b-2 px-2 outline-none w-3/5 mt-8"
+                class="dark:bg-white dark:bg-opacity-0 h-12 border-b-2 px-2 outline-none md:w-3/5 w-4/5 mt-8"
                 onChange={(e) => setSearch(e.target.value)}
             ></input>
             {isSearching && searchData ? 
