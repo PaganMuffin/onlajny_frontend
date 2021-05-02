@@ -1,6 +1,12 @@
 import {useState, useEffect, useRef} from 'react'
 import { Link } from 'react-router-dom'
 import LoadingSpin from '../components/loading'
+import {ButtonPrev} from '../components/buttons/prev'
+import {ButtonBack} from '../components/buttons/back'
+import {ButtonNext} from '../components/buttons/next'
+import {ButtonOff} from '../components/buttons/off'
+
+
 const API = {
     adres: "https://api.animegetter.workers.dev",
     version: "v1"
@@ -187,55 +193,6 @@ const Ep = (props) => {
         )
     }
 
-    const ButtonNextPrev = (props) => {
-        const value = props.value
-        const text = props.text
-        const isSeries = props.isSeries
-        const pathname = props.pathname
-        if(isSeries){
-            let url = `/series/${provider}/`
-            return (
-                <Link 
-                    class={`w-full py-1 hover:bg-indigo-800 transition duration-300 ease-in-out focus:outline-none outline-none text-center`}
-                    to={url}>
-                    <button 
-                        class="font-semibold text-lg focus:outline-none outline-none"
-                    >
-                        {text}
-                    </button>
-                </Link>
-            )
-        } else if (value !== null) {
-            let url = '/episode/'+ provider + '/'
-            if(value.series_id){
-                url += value.series_id + '/'
-            }
-            if(value.episode_id){
-                url += value.episode_id
-            }
-            return (
-                <Link 
-                    class={`w-full py-1 hover:bg-indigo-800 transition duration-300 ease-in-out focus:outline-none outline-none text-center`}
-                    to={url}>
-                    <button 
-                        class="font-semibold text-lg focus:outline-none outline-none"
-                    >
-                        {text}
-                    </button>
-                </Link>
-            )
-        } else {
-            return (
-                <button
-                    disabled
-                    class="w-full py-1 text-gray-500 text-center font-semibold text-lg focus:outline-none"
-                >
-                    {text}
-                </button>
-            )
-        }
-    } 
-
     return (
         <div class="w-full flex justify-center p-2">
             {data === null ? <div class="mt-72"><LoadingSpin/></div>  : 
@@ -244,11 +201,20 @@ const Ep = (props) => {
                     <p class="font-semibold text-lg">{data.episode_title}</p>
                         <Player/>
                         <div
-                            class="bg-white bg-opacity-8 overflow-hidden flex justify-between"
+                            class={`bg-white bg-opacity-8 overflow-hidden flex justify-between ${provider === 'shinden' ? 'rounded-b-lg': null }`}
                         >
-                            <ButtonNextPrev pathname={props.location.pathname} isSeries={false} text={"Poprzedni"} value={data.prev}/>
-                            <ButtonNextPrev pathname={props.location.pathname} isSeries={true} text={"Powrót do serii"} value={null}/>
-                            <ButtonNextPrev pathname={props.location.pathname} isSeries={false} text={"Następny"} value={data.next}/>
+                            {data['prev'] ? 
+                                <ButtonPrev text="Poprzedni" provider={provider} data={data['prev']}></ButtonPrev>
+                            :
+                                <ButtonOff text="Poprzedni"/>
+                            }
+                            <ButtonBack text="Powrót do serii" series_id={data['series_id']} provider={provider} series_endpoint={data['series_endpoint']}></ButtonBack>
+
+                            {data['next'] ? 
+                                <ButtonNext text="Następny" provider={provider} data={data['next']} ></ButtonNext>
+                            :
+                                <ButtonOff text="Następny"/>
+                            }
                         </div>
                         {provider === 'shinden' ? 
                         <ShindenList/>    
