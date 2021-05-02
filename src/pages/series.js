@@ -14,6 +14,7 @@ const Series = (props) => {
     const fetchUpdate = async (props) => {
         const res = await fetch(`${API.adres}/${API.version}${props.pathname}`)
         const res_json = await res.json()
+        document.title = " ONLAJNY | " + res_json['title']
         setData(res_json)
         setEpisodes(res_json.items)
     }

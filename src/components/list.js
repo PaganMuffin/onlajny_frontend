@@ -23,25 +23,26 @@ const ListEpisode = (props) => {
                         url += `/${x.episode_id}`
                     }
                     return (
-                        <div class="p-3"
-                            style={{
-                                backgroundColor: idx % 2 ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.1)'
-                            }}
-                        >
-                            <Link  to={url}>
-                                <div class="text-lg">
-                                {x.title ?
-                                <p>
-                                    [{x.number}] {x.title}
-                                </p>
-                                :
-                                <p>
-                                    [{x.number}] Brak tytułu odcinka
-                                </p>
-                                }
-                                </div>
-                            </Link>
-                        </div>
+                        <Link  to={url}>
+                            <div class={`p-3 bg-white ${idx % 2 ? "bg-opacity-5" : "bg-opacity-10"}   hover:bg-opacity-20`}
+                                style={{
+                                    //backgroundColor: idx % 2 ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255, 255, 255, 0.1)'
+                                }}
+                            >
+                                
+                                    <div class="text-lg">
+                                    {x.title ?
+                                    <p>
+                                        [{x.number}] {x.title}
+                                    </p>
+                                    :
+                                    <p>
+                                        [{x.number}] Brak tytułu odcinka
+                                    </p>
+                                    }
+                                    </div>
+                            </div>
+                        </Link>
                     )
                 })
             }

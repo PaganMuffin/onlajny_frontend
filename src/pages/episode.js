@@ -25,7 +25,7 @@ const Ep = (props) => {
     const fetchUpdate = async (params) => {
         const req = await fetch(`${API.adres}/${API.version}${params}`)
         const j = await req.json()
-        console.log(j)
+        document.title = "ONLAJNY | " + j["series_title"]
         setData(j)
         setLink(j.items[0].url)
     }
@@ -144,13 +144,13 @@ const Ep = (props) => {
     const ShindenList = () => {
         return (
         <div>
-            {tlumacz ? <div>
+            {tlumacz ? <div class="p-2">
                 <p>Grupa: {tlumacz.group}</p>
                 <p>Autor: {tlumacz.author.replace(/(<([^>]+)>)/gi, "").split("||").map(x => x.trim()).join(" || ")}</p>
                 <p>Źródło: <a href={tlumacz.source} >{tlumacz.source}</a></p>
             </div> : null }
             <table
-                class="table-auto w-full"
+                class="table-auto w-full border-collapse mt-4"
             >
                 <thead>
                     <tr>
@@ -160,11 +160,11 @@ const Ep = (props) => {
                         <th class="hidden md:block">Data dodania</th>
                     </tr>
                 </thead>
-                <tbody>
-                    {data.items.map((x) => {
+                <tbody >
+                    {data.items.map((x, idx) => {
                         return (
                             <tr 
-                                class="hover:bg-indigo-800 mt-2 mb-2 border-b-2 text-center"
+                                class={`border-8 border-transparent hover:bg-opacity-20 text-center bg-white ${idx % 2 ? "bg-opacity-5" : "bg-opacity-10"}`}
                                 onClick={() => {
                                     setTlumacz({
                                         group:x.group,
@@ -208,7 +208,7 @@ const Ep = (props) => {
                             :
                                 <ButtonOff text="Poprzedni"/>
                             }
-                            <ButtonBack text="Powrót do serii" series_id={data['series_id']} provider={provider} series_endpoint={data['series_endpoint']}></ButtonBack>
+                            <ButtonBack text="Odcinki" series_id={data['series_id']} provider={provider} series_endpoint={data['series_endpoint']}></ButtonBack>
 
                             {data['next'] ? 
                                 <ButtonNext text="Następny" provider={provider} data={data['next']} ></ButtonNext>

@@ -10,13 +10,14 @@ const update = (props) => {
 
     return (
         <div class="mt-5">
-            <div class="mt-5 font-semibold text-2xl p-1">{props.data.provider}</div>
+            <div class="mt-5 font-semibold text-2xl pb-1">{props.data.provider}</div>
             <div
                 style={{
                     display:'grid',
                     gridTemplateColumns:'repeat(auto-fill, 125px)',
                     justifyContent:'space-between',
                     gridGap:'25px 14px',
+                    padding:'10px'
                 }}
             >
                 {props.data.items.map((x, i) => {

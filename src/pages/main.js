@@ -11,7 +11,7 @@ const API = {
 const Main = (props) => {
     const [data, setData] = useState(null)
     const [searchData, setSearchData] = useState(null)
-
+    document.title = "ONLAJNY"
     const [search, setSearch] = useState(null)
     const debounceSearchTerm = useDebounce(search, 500)
     const [isSearching, setIsSearching] = useState(false)
