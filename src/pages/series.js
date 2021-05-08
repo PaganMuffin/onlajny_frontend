@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import ListEpisode from '../components/list'
 import Loading from '../components/loading'
 const API = {
-    adres: "https://api.animegetter.workers.dev",
+    adres: "https://api.onlajny.ga",
     version: "v1"
 }
 

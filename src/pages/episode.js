@@ -8,7 +8,7 @@ import {ButtonOff} from '../components/buttons/off'
 
 
 const API = {
-    adres: "https://api.animegetter.workers.dev",
+    adres: "https://api.onlajny.ga",
     version: "v1"
 }
 

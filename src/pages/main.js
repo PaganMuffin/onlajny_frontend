@@ -4,7 +4,7 @@ import useDebounce from '../components/useDebounce'
 import SearchView from '../components/search'
 import Loading from '../components/loading'
 const API = {
-    adres: "https://api.animegetter.workers.dev",
+    adres: "https://api.onlajny.ga",
     version: "v1"
 }
 
