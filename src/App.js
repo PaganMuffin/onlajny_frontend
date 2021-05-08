@@ -12,6 +12,7 @@ import Main from './pages/main'
 import Series from './pages/series'
 import Episode from './pages/episode'
 const App = (props) => {
+    const site_name = "XDDDDD" //onlajny.pl
     const location = useLocation()
     const [dark, setDark] = useState(true)
     const [podstrona, setPodstrona] = useState("Strona Główna")
@@ -48,7 +49,7 @@ const App = (props) => {
             {/* APP BAR */}
             <div id="navbar" class="flex justify-between h-10">
                 <div class="flex divide-x-2 dark:divide-white pt-2 pb-2">
-                    <div class="text-center font-extrabold text-2xl px-6"><Link to="/">ONLAJNY.</Link></div>
+                    <div class="text-center font-extrabold text-2xl px-6"><Link to="/">{site_name}.</Link></div>
                     <div class="text-center font-light md:text-2xl text-lg  px-6">{podstrona}</div>
                 </div>
                 {/*
@@ -71,11 +72,11 @@ const App = (props) => {
                 <Switch>
                     <Route path="/series" render={(props) => <Series {...props}/>}/> 
                     <Route path="/episode" render={(props) => <Episode {...props}/>}/> 
-                    <Route exact path="/" render={(props) => <Main {...props}/>}/> 
+                    <Route exact path="/" render={(props) => <Main {...props} site_name={site_name}/>}/> 
                 </Switch>
             </div>
             <footer class="mt-10 h-10 text-center w-full">
-                Onlajny.pl 2021
+                {site_name} 2021
             </footer>
         </div>
     );

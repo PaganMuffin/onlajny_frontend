@@ -9,6 +9,7 @@ const API = {
 }
 
 const Main = (props) => {
+    console.log(props)
     const [data, setData] = useState(null)
     const [searchData, setSearchData] = useState(null)
     document.title = "ONLAJNY"
@@ -19,7 +20,7 @@ const Main = (props) => {
     const fetchUpdate = async () => {
         const res = await fetch(`${API.adres}/${API.version}/update`)
         const res_json = await res.json()
-        setData(res_json.reverse())
+        setData(res_json)
         setSearchData(null)
     }
 
@@ -64,7 +65,7 @@ const Main = (props) => {
 
     return (
         <div class="flex flex-col items-center ">
-            <div class="text-center text-5xl font-extrabold mt-8 px-6">ONLAJNY.</div>
+            <div class="text-center text-5xl font-extrabold mt-8 px-6">{props.site_name}.</div>
             <div class="text-center text-2xl font-thin px-6">Wszystko w jednym miejscu</div>
             <input
                 value={search}

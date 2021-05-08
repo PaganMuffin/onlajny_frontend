@@ -25,9 +25,10 @@ const Ep = (props) => {
     const fetchUpdate = async (params) => {
         const req = await fetch(`${API.adres}/${API.version}${params}`)
         const j = await req.json()
-        document.title = "ONLAJNY | " + j["series_title"]
+        document.title = j["series_title"] + " - ONLAJNY"
         setData(j)
-        setLink(j.items[0].url)
+        if(props.location.pathname.split('/')[2] != "shinden")
+            setLink(j.items[0].url)
     }
 
     useEffect(() => {
