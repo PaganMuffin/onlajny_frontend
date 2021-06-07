@@ -50,7 +50,7 @@ const Series = (props) => {
                     <div class="md:w-3/4  m-5">
                         <div>
                             <p class="font-extrabold text-2xl pb-5">{data.title}</p>
-                            <div class="border-b">{`Gatunki: ` + ["Komedia", "Okruchy Życia", "Romans", "Shounen", "Szkolne"].join(', ')}</div>
+                            {/*<div class="border-b">{`Gatunki: ` + ["Komedia", "Okruchy Życia", "Romans", "Shounen", "Szkolne"].join(', ')}</div>*/}
                             <p class="mt-2">{data.desc}</p>
                             <p class="text-xs">Źródło: {showProvider()}</p>
                         </div>

@@ -49,7 +49,7 @@ const update = (props) => {
                                 <div id="cover" class="overflow-hidden rounded-md">
                                     <div
                                         style={{
-                                            backgroundImage:`url("https://api.animegetter.workers.dev/v1/proxy/${x.cover}")`,
+                                            backgroundImage:`url("https://api.onlajny.ga/v1/proxy/${x.cover}")`,
                                             width:'125px',
                                             height:'180px'
                                         }}
