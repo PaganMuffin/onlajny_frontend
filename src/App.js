@@ -12,7 +12,7 @@ import Main from './pages/main'
 import Series from './pages/series'
 import Episode from './pages/episode'
 const App = (props) => {
-    const site_name = "XDDDDD" //onlajny.pl
+    const site_name = "Onlajny" 
     const location = useLocation()
     const [dark, setDark] = useState(true)
     const [podstrona, setPodstrona] = useState("Strona Główna")

@@ -25,7 +25,7 @@ const Ep = (props) => {
     const fetchUpdate = async (params) => {
         const req = await fetch(`${API.adres}/${API.version}${params}`)
         const j = await req.json()
-        document.title = j["series_title"] + " - ONLAJNY"
+        document.title = j["series_title"] + " - Onlajny"
         setData(j)
         if(props.location.pathname.split('/')[2] != "shinden")
             setLink(j.items[0].url)

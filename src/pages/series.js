@@ -11,10 +11,12 @@ const Series = (props) => {
     const [seriesId, setSeriesId] = useState(null) 
     const [data, setData] = useState(null)
     const [episodes, setEpisodes] = useState(null)
+    const [sortOrder, setSortOrder] = useState(0)
+
     const fetchUpdate = async (props) => {
         const res = await fetch(`${API.adres}/${API.version}${props.pathname}`)
         const res_json = await res.json()
-        document.title = " ONLAJNY | " + res_json['title']
+        document.title = res_json['title'] + " - Onlajny"
         setData(res_json)
         setEpisodes(res_json.items)
     }
@@ -26,6 +28,7 @@ const Series = (props) => {
     }, [])
 
     const sortReverse = () => {
+        setSortOrder( sortOrder === 1 ? 0 : 1 )
         setEpisodes([...episodes.reverse()])
     } 
     const showProvider = () => {
@@ -54,8 +57,14 @@ const Series = (props) => {
                             <p class="mt-2">{data.desc}</p>
                             <p class="text-xs">Źródło: {showProvider()}</p>
                         </div>
-                        <div class="mt-5 rounded-lg">
-                            <button onClick={sortReverse}>DASDA</button>
+                        <div class=" content-end mt-5 rounded-lg">
+                            <button 
+                                onClick={sortReverse}
+                                class="bg-white bg-opacity-20 w-32 h-8 rounded-lg my-2"
+                                style={{
+                                    outline:'none'
+                                }}
+                            >{sortOrder === 1 ? "Sortuj rosnąco" : "Sortuj malejąco"}</button>
                             <ListEpisode data={episodes} series_id={data.series_id} provider={provider} />
                         </div>
 
