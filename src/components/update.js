@@ -24,7 +24,7 @@ const update = (props) => {
                     
                     let url = ''
                     url += x.type === 'series' ? `/series/${x.provider}` : `/episode/${x.provider}` 
-                    if(x.provider === 'desu'){
+                    if(x.provider === 'desu' || x.provider === 'frixysubs'){
                         url += x.series_id ? `/${x.series_id}` : `/${x.episode_id}`
                     } else if (x.provider === 'shinden'){
                         url += `/${x.endpoint}/${x.series_id}/${x.episode_id}`

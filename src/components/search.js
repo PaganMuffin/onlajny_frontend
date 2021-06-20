@@ -10,12 +10,16 @@ const SearchView = (props) => {
             <div class="bg-white bg-opacity-5 rounded-lg w-full h-full">
                 <div class="m-5">
                     {data.items.map((x) => {
-                        
                         let url = `/series/${x.provider}`
-                        if(x.endpoint){
-                            url += `/${x.endpoint}`
+                        if ( x.provider === 'frixysubs' && x.episode_id){
+                            url = `/episode/frixysubs/${x.episode_id}?movie=1`    
+                        } else {
+                            if(x.endpoint){
+                                url += `/${x.endpoint}`
+                            }
+                            url += `/${x.series_id}`
+
                         }
-                        url += `/${x.series_id}`
                         return (
                             <Link  to={url}>
                                 <p class="truncate p-1 ">{x.title}</p>

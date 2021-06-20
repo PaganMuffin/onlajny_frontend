@@ -39,7 +39,7 @@ const Ep = (props) => {
     useEffect(() => {
         setData(null)
         setLink(null)
-        fetchUpdate(props.location.pathname)
+        fetchUpdate(props.location.pathname + props.location.search)
     }, [props.location.pathname])
 
     const showPlayer = async (online_id) => {
@@ -209,7 +209,11 @@ const Ep = (props) => {
                             :
                                 <ButtonOff text="Poprzedni"/>
                             }
-                            <ButtonBack text="Odcinki" series_id={data['series_id']} provider={provider} series_endpoint={data['series_endpoint']}></ButtonBack>
+                            {data['series_id'] ? 
+                                <ButtonBack text="Odcinki" series_id={data['series_id']} provider={provider} series_endpoint={data['series_endpoint']}></ButtonBack>
+                            :
+                                <ButtonOff text="Odcinki"/>
+                            }
 
                             {data['next'] ? 
                                 <ButtonNext text="Następny" provider={provider} data={data['next']} ></ButtonNext>
