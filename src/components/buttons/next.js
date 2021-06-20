@@ -12,7 +12,7 @@ export const ButtonNext = (props) => {
         url = `/episode/${provider}/${data['series_id']}/${data['episode_id']}`
     else if(provider === 'shinden')
         url = `/episode/${provider}/${data['endpoint']}/${data['series_id']}/${data['episode_id']}`
-    else if(provider === 'desu')
+    else if(provider === 'desu' || provider === 'frixysubs')
         url = `/episode/${provider}/${data['episode_id']}`
     return (
         <Link 
