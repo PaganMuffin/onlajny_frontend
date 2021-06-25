@@ -9,7 +9,7 @@ const API = {
 }
 
 const Main = (props) => {
-    console.log(props)
+    //console.log(props)
     const [data, setData] = useState(null)
     const [searchData, setSearchData] = useState(null)
     document.title = "ONLAJNY"
