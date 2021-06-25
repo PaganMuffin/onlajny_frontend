@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 
 export const ButtonNext = (props) => {
-    console.log(props)
+    //console.log(props)
     const provider = props['provider']
     const text = props['text']
     const series_id = props['series_id']
